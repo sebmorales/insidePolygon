@@ -1,5 +1,5 @@
 ////////
-//  Check if a point is inside a random poligon
+//  Check if a point is inside a random polygon
 //  Checking by adding the angles created by every 
 //  vertex pair with the point in question
 //  Sebastia Morales
@@ -46,26 +46,23 @@ boolean isInside() {
       }
     }
   }
-  //Note that if the poligon self intersects the angle will be greater
-  //to 2Pi or less than -2Pi
-  if (angle>TWO_PI-.05 || angle<-TWO_PI+.05) {
-    return (true);
+  //println(angle);
+  // if the sum of all angles is equel to 0, then the point is outside
+  if (angle>-.05 && angle<.05) {
+    return (false);
   } else {
-    return(false);
+    return(true);
   }
 }
-
-
 
 // The following function looks a little odd and I am sure there might be 
 // a better way to do this. I just needed to find the angle between points
 // p1 and p2 based in the mouse pos. 
 // I had to use heading insead of angleBetween because the later returned 
 // absolute values. 
-
 float angleBetween3Points(PVector P1, PVector center, PVector P2) {
   float angle=0;
-  //Move PVectors to point in question
+  //Translate PVectors with respect to point in question
   PVector p1=PVector.sub(P1, center);
   PVector p2=PVector.sub(P2, center);
   //Find angle beween p1 and x axis
@@ -73,9 +70,7 @@ float angleBetween3Points(PVector P1, PVector center, PVector P2) {
   //rotate PVectors to align p1 with x axis
   p1.rotate(-angleP1Xaxis);
   p2.rotate(-angleP1Xaxis);
-  //find angle between p2 and x axis
+  //find angle between p2 and x axis (p1)
   angle=p2.heading();
-  p1.rotate(angleP1Xaxis);
-  p2.rotate(angleP1Xaxis);
   return(angle);
 }
